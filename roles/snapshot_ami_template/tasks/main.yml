@@ -1,0 +1,28 @@
+---
+  - name: take a snapshot backup of the static website directory
+    ec2_snapshot:
+      aws_access_key: "{{ aws_access_id }}"
+      aws_secret_key: "{{ aws_secret_key }}"
+      region: "{{ aws_region }}"
+      instance_id: "{{ ec2_instance_details["instance_id"] }}"
+      device_name: "{{ aws_ec2_disk_device_name }}"
+      description: play for static site deployment backup
+      wait: no
+    register: snapshot_results
+    notify:
+      - Display-Website-Snapshot-Results
+
+  - name: Create-Webserver-AMI-Template
+    ec2_ami:
+      aws_access_key: "{{ aws_id }}"
+      aws_secret_key: "{{ aws_key }}"
+      region: "{{ aws_region }}"
+      instance_id: "{{ ec2_instance_details["instance_id"] }}"
+      wait: no
+      name: webservertemplate
+      tags:
+        Name: webservertemplate_version_1
+        Service: TestAMITemplatePlaybook
+    register: ami_results
+    notify:
+      - Display-AMI-Creation-Results

@@ -1,0 +1,9 @@
+---
+  aws_region: us-east-1c
+  aws_vpc_id:
+  security_group_name: ec2-webserver-sg
+  ec2_instance_type: t2.micro
+  image_id: 
+  aws_ec2_disk_device_name: /dev/sda1
+  aws_vpc_subnet_id:
+  ec2_count: 1
